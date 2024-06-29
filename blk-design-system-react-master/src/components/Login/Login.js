@@ -16,11 +16,12 @@ const Login = () => {
         setError(null);
 
         try {
+            console.log("Calling API Login.........")
             const response = await axios.post('http://localhost:5000/users/login', {
                 email: email,
                 password: password
             });
-            console.log(`response.data = ${response.data}`);
+            console.log(`response.data = ${JSON.stringify(response.data)}`);
             // handle successful login here (e.g., redirect, save token, etc.)
         } catch (error) {
             setError(error.response ? error.response.data : error.message);

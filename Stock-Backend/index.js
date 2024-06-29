@@ -29,17 +29,41 @@ const client = new pg.Client({
 
 client.connect()
 
-const checkRecord = (email) => {
-    return new Promise((resolve, reject) => {
-        client.query("SELECT * FROM users WHERE email = $1", [email], (err, result) => {
-            if (err) {
-                reject(err);
-            } else {
-                resolve(result.rows.length > 0);
+
+const checkRecord = async (...args) => {
+    if (args.length > 1) {
+        try {
+            const result = await client.query("SELECT user_password FROM users WHERE email = $1", [args[0]]);
+            if (result.rows.length === 0) {
+                return false; // No user found with that email
             }
+            const hashedUserPassword = result.rows[0].user_password;
+
+            console.log(`Going to compare ${args[0]} against ${hashedUserPassword}`);
+
+            const match = await bcrypt.compare(args[1], hashedUserPassword);
+            if (match === false) {
+                console.error('Passwords do not match.');
+                return false;
+            }
+            return match;
+        } catch (error) {
+            console.error('Error checking record:', error);
+            throw error;
+        }
+    } else {
+        return new Promise((resolve, reject) => {
+            client.query("SELECT * FROM users WHERE email = $1", [args[0]], (err, result) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(result.rows.length > 0);
+                }
+            });
         });
-    });
-}
+    }
+};
+
 
 app.use(express.json());
 
@@ -76,13 +100,13 @@ app.get("/stock/:name", (req, res) => {
         });
 });
 
-app.get('/users/login', (req, res) => {
+app.post('/users/login', async (req, res) => {
     const { email, password } = req.body;
-    console.log('Received email:', email);
-    console.log('Received password:', password);
+    console.log('Received Login email:', email);
+    console.log('Received Login password:', password);
     
     // You can add your authentication logic here
-    if (email == 'test@example.com' && password == 'password') {
+    if (await checkRecord(email, password)) {
         res.status(200).send({ message: 'Login successful' });
     } else {
         res.status(401).send({ message: 'Invalid credentials' });
@@ -101,7 +125,7 @@ app.post("/users/signup", async (req, res) => {
     console.log('Received email:', email);
     console.log('Received password:', user_password);
 
-    bcrypt.hash(user_password, saltRounds, async function(err, hash) {
+    await bcrypt.hash(user_password, saltRounds, async function(err, hash) {
         console.log(`Hash: ${hash}`);
         const response =  await client.query("INSERT INTO users (username, email, user_password) VALUES ($1, $2, $3)",  [username, email, hash]);
 
