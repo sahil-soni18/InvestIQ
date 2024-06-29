@@ -64,6 +64,7 @@ ehthumbs.db
 build/
 public/static/
 *.env
+.env
 
 # Parcel-bundler cache (https://parceljs.org/)
 .cache/
