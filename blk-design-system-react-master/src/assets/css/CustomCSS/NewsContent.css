@@ -1,0 +1,25 @@
+.NewsContainer {
+    position: relative;
+    bottom: 38vh;
+    height: 100vh;
+    width: 60vw;
+}
+
+.Title {
+    display: flex;
+    margin: 1rem;
+}
+
+.Title Button {
+    position: relative;
+    left: 35vw;
+
+}
+
+.News-Content {
+    display: inline-block;
+    justify-content: center;
+    align-items: center;
+    margin: 2rem;
+    
+}

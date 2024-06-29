@@ -1,0 +1,84 @@
+.login-container {
+    background-color: black;
+    height: 100vh;
+    position: relative;
+    /* bottom: 20vh; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    overflow-x: hidden;
+}
+
+.loginForm {
+    position: relative;
+    height: 60vh;
+    width: 30vw;
+    margin: 20vh 35vw;
+    background-color: aliceblue;
+}
+
+.WebsiteName {
+    background-color: aliceblue;
+    color: #000;
+    font-weight: bold;
+    position: relative;
+    display: flex;
+    position: relative;
+    top: 2vh;
+    justify-content: center;
+
+}
+
+.loginLabel {
+    display: block;
+    background-color: aliceblue;
+    color: black;
+    font-weight: bold;
+    margin: 2vh 6vw;
+}
+
+.Input-Field  {
+    position: relative;
+    width: 18vw;
+    margin: 4px 6vw;
+    display: block;
+    background-attachment: fixed;
+    background-color: white;
+    color: #000000 !important;
+}
+
+.loginButton {
+    position: relative;
+    width: 18vw;
+    margin: 7vh 6vw;
+    display: block;
+    background-attachment: fixed;
+}
+
+.forgotPassword {
+    background-color: aliceblue;
+    color: #000;
+    position: relative;
+    left: 17vw;
+    width: 2vw;
+    cursor: pointer;
+}
+
+.signup, .DontHaveAccount {
+    display: flex;
+    background-color: aliceblue;
+    justify-content: center;
+    position: relative;
+    bottom: 3vh;
+}
+
+.DontHaveAccount {
+    color: #000;
+    margin-right: 0.2vw;
+}
+
+.signup-link {
+    position: relative;
+    bottom: 3vh;
+}

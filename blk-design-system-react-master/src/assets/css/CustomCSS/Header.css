@@ -1,0 +1,106 @@
+/* PageHeader.css */
+
+/* General styling for the header */
+.page-header {
+    position: relative;
+    background-color: #2c3e50;
+    padding: 60px 0;
+    text-align: center;
+    color: white;
+  }
+  
+  .page-header .squares {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+  }
+
+  .content-center {
+    margin-bottom: 60px;
+    text-align: center !important; /* This line centers the text */
+  }
+  
+  
+  .square1 { top: 20px; left: 20px; }
+  .square2 { top: 100px; right: 20px; }
+  .square3 { bottom: 20px; left: 20px; }
+  .square4 { bottom: 100px; right: 20px; }
+  .square5 { top: 50%; left: 10%; }
+  .square6 { top: 50%; right: 10%; }
+  .square7 { bottom: 50%; left: 50%; }
+  
+  /* Styling for the slogan */
+  .brand {
+    margin-bottom: 60px;
+  }
+  
+  .h1-seo {
+    font-size: 48px;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  .description {
+    font-size: 24px;
+    font-weight: 300;
+    margin-top: 10px;
+    color: #f39c12;
+  }
+  
+  /* Stock cards styling */
+  .stock-cards {
+    margin-top: 40px;
+  }
+  
+  .stock-card {
+    background-color: #34495e;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+  }
+  
+  .stock-card:hover {
+    transform: translateY(-10px);
+  }
+  
+  .stock-card h5 {
+    color: #ecf0f1;
+  }
+  
+  .stock-card strong {
+    color: #f39c12;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .h1-seo {
+      font-size: 36px;
+    }
+  
+    .description {
+      font-size: 20px;
+    }
+  
+    .stock-card {
+      margin-bottom: 20px;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .h1-seo {
+      font-size: 28px;
+    }
+  
+    .description {
+      font-size: 18px;
+    }
+  
+    .stock-cards {
+      margin-top: 30px;
+    }
+  }
+  

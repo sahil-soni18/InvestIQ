@@ -1,0 +1,69 @@
+/* Custom CSS for ExamplesNavbar */
+
+/* General Navbar styling */
+.navbar {
+    padding: 10px 0;
+  }
+  
+  /* Search bar styling */
+  .search-bar {
+    width: 400px;
+    max-width: 100%;
+    margin: 0 auto;
+  }
+  
+  .search-bar input {
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: transparent;
+    padding: 0.5rem 1rem;
+  }
+  
+  .search-bar .input-group-text {
+    border: none;
+    background: transparent;
+    padding-left: 1rem;
+  }
+  
+  .search-bar .input-group-append .input-group-text {
+    border-left: 1px solid #ccc;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+  }
+  
+  /* Hover effects for search bar */
+  .search-bar input:focus {
+    border-color: #007bff;
+    box-shadow: 0 4px 12px rgba(0, 123, 255, 0.5);
+  }
+  
+  /* Icon styling */
+  .navbar .nav-link .fa-bell, .navbar .nav-link .fa-user {
+    font-size: 1.5rem; /* Increase icon size */
+    color: #007bff; /* Primary color */
+    transition: color 0.3s ease;
+    margin-left: 2rem; /* Adjust margin for spacing */
+  }
+  
+  /* Hover effects for icons */
+  .navbar .nav-link:hover .fa-bell, .navbar .nav-link:hover .fa-user {
+    color: #0056b3; /* Darker shade on hover */
+  }
+  
+  /* Adjust NavbarBrand text */
+  #navbar-brand {
+    font-size: 1.25rem;
+    color: #333;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 767.98px) {
+    .search-bar {
+      width: 100%;
+    }
+  }
+  
+.searchIcon {
+  padding: 0 0.5rem;
+}
