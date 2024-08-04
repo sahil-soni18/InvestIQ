@@ -42,7 +42,10 @@ export default function PageHeader() {
     axios.get(`https://www.alphavantage.co/query?function=TOP_GAINERS_LOSERS&apikey=${apiKey}`)
       .then((response) => {
         const data = response.data.top_gainers; // Ensure you access the correct path in the response
-        setTopGainers(data.slice(0, 3)); // Limit to 3 items
+        if (data) {
+
+          setTopGainers(data.slice(0, 3)); // Limit to 3 items
+        }
       })
       .catch((error) => {
         console.log(error);

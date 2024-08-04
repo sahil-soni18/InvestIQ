@@ -73,7 +73,7 @@ export default function IndexNavbar(props) {
 
   const handleLogout = () => {
     loginState.logout();
-    navigate("/login");
+    navigate("/blk-design-system-react");
   };
 
   return (
