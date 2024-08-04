@@ -3,6 +3,9 @@ import PageHeader from "../components/PageHeaders/PageHeader";
 import Footer from "components/Footer/Footer";
 import IndexNavbar from "../components/Navbars/IndexNavbar";
 import News from "components/NEWS/News";
+import { LoginProvider } from "context/ContextAPI";
+
+
 
 
 export default function Index() {
@@ -21,6 +24,8 @@ export default function Index() {
   return (
     
 
+    <LoginProvider>
+
 
       <div className="index-page-content">
         <IndexNavbar />
@@ -28,6 +33,7 @@ export default function Index() {
         <News />
         <Footer />
       </div>
+    </LoginProvider>
 
 
   );

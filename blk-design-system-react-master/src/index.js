@@ -31,10 +31,13 @@ import ProfilePage from "views/examples/ProfilePage.js";
 import Stock from "views/Stock";
 import Login from "./components/Login/Login"
 import Signup from "views/IndexSections/Signup";
+import { LoginProvider } from "context/ContextAPI";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
+  <LoginProvider>
+    
   <BrowserRouter>
     <Routes>
       <Route path="/blk-design-system-react" element={<Index />} />
@@ -46,4 +49,5 @@ root.render(
       <Route path="/signup" element={<Signup />} />
     </Routes>
   </BrowserRouter>
+  </LoginProvider>
 );

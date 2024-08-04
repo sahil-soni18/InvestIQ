@@ -15,10 +15,12 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React from "react";
+import React, { useContext } from "react";
 import classnames from "classnames";
 import "../../assets/css/CustomCSS/Signup.css"
-// import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { loginContext } from "../../context/ContextAPI";
 // reactstrap components
 import {
   Button,
@@ -41,6 +43,46 @@ import {
 } from "reactstrap";
 
 export default function Signup() {
+
+  const navigate = useNavigate();
+  
+  const loginState = useContext(loginContext);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log("Form submitted");
+    console.log(`Full Name: ${fullName}`);
+    console.log(`Email: ${email}`);
+    console.log(`Password: ${password}`);
+    try {
+      const response = await axios.post('http://localhost:5000/users/signup', {
+        username: fullName,
+        email: email,
+        user_password: password
+      })
+
+      console.log(response.status);
+
+      if (response.status === 201) {
+        loginState.setIsLoggedIn(true);
+                console.log(loginState.isLoggedIn);
+                navigate("/blk-design-system-react");  
+      }
+
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setFullName("");
+      setEmail("");
+      setPassword("");
+    }
+
+
+  }
+
+  const [fullName, setFullName] = React.useState("");
+  const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
   
   const [fullNameFocus, setFullNameFocus] = React.useState(false);
   const [emailFocus, setEmailFocus] = React.useState(false);
@@ -81,7 +123,7 @@ export default function Signup() {
                 <CardTitle tag="h4">Register</CardTitle>
               </CardHeader>
               <CardBody>
-                <Form className="form">
+                <Form className="form" onSubmit={handleSubmit}>
                   <InputGroup
                     className={classnames({
                       "input-group-focus": fullNameFocus,
@@ -95,6 +137,8 @@ export default function Signup() {
                     <Input
                       placeholder="Full Name"
                       type="text"
+                      value={fullName}
+                      onChange={(e) => setFullName(e.target.value)}
                       onFocus={(e) => setFullNameFocus(true)}
                       onBlur={(e) => setFullNameFocus(false)}
                     />
@@ -112,6 +156,8 @@ export default function Signup() {
                     <Input
                       placeholder="Email"
                       type="text"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
                       onFocus={(e) => setEmailFocus(true)}
                       onBlur={(e) => setEmailFocus(false)}
                     />
@@ -129,6 +175,8 @@ export default function Signup() {
                     <Input
                       placeholder="Password"
                       type="text"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
                       onFocus={(e) => setPasswordFocus(true)}
                       onBlur={(e) => setPasswordFocus(false)}
                     />
@@ -143,13 +191,13 @@ export default function Signup() {
                       .
                     </Label>
                   </FormGroup>
-                </Form>
-              </CardBody>
               <CardFooter>
-                <Button className="btn-round" color="primary" size="lg">
+                <Button className="btn-round" type="submit" color="primary" size="lg">
                   Get Started
                 </Button>
               </CardFooter>
+                </Form>
+              </CardBody>
             </Card>
           </Col>
         </Row>

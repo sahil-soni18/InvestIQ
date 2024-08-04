@@ -1,22 +1,6 @@
-/*!
-
-=========================================================
-* BLK Design System React - v1.2.2
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/blk-design-system-react
-* Copyright 2023 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://github.com/creativetimofficial/blk-design-system-react/blob/main/LICENSE.md)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
-import React, { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import React, { useState, useEffect, useContext } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { loginContext } from "context/ContextAPI";
 import {
   Collapse,
   NavbarBrand,
@@ -45,8 +29,9 @@ export default function IndexNavbar(props) {
   const [collapseOut, setCollapseOut] = useState("");
   const [color, setColor] = useState("navbar-transparent");
   const [searchCompany, setSearchCompany] = useState("");
-
+  const loginState = useContext(loginContext);
   const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     window.addEventListener("scroll", changeColor);
@@ -84,6 +69,11 @@ export default function IndexNavbar(props) {
 
   const handleSearchChange = (e) => {
     setSearchCompany(e.target.value);
+  };
+
+  const handleLogout = () => {
+    loginState.logout();
+    navigate("/login");
   };
 
   return (
@@ -154,13 +144,21 @@ export default function IndexNavbar(props) {
                 </NavLink>
               </NavItem>
             )}
-            <NavItem>
-              <Link to="/Login">
-                <Button className="btn-round" color="primary" type="button">
-                  Login
+            {loginState.isLoggedIn ? (
+              <NavItem>
+                <Button className="btn-round" color="danger" onClick={handleLogout}>
+                  Logout
                 </Button>
-              </Link>
-            </NavItem>
+              </NavItem>
+            ) : (
+              <NavItem>
+                <Link to="/login">
+                  <Button className="btn-round" color="primary" type="button">
+                    Login
+                  </Button>
+                </Link>
+              </NavItem>
+            )}
           </Nav>
         </Collapse>
       </Container>

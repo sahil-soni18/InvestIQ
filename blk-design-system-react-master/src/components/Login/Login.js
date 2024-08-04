@@ -1,30 +1,49 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Button, Input } from 'reactstrap';
 import '../../assets/css/CustomCSS/Login.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { loginContext } from "../../context/ContextAPI";
 
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
+    const [loginSuccess, setLoginSuccess] = useState(false);
+    const loginState = useContext(loginContext);
+    const navigate = useNavigate();
+    
+    useEffect(() => {
+        if (loginSuccess) {
+            navigate("/blk-design-system-react");
+        }
+    }, [loginSuccess, navigate]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
         setError(null);
-
+    
         try {
-            console.log("Calling API Login.........")
             const response = await axios.post('http://localhost:5000/users/login', {
-                email: email,
-                password: password
+                email,
+                password
             });
-            console.log(`response.data = ${JSON.stringify(response.data)}`);
-            // handle successful login here (e.g., redirect, save token, etc.)
+    
+            if (response.data.loggedIn) {
+                loginState.setIsLoggedIn(true);
+                loginState.setEmail(email);
+                setLoginSuccess(true);
+
+                // Save login state to localStorage
+                localStorage.setItem('isLoggedIn', true);
+                localStorage.setItem('email', email);
+            } else {
+                setError("Invalid credentials. Please try again.");
+            }
         } catch (error) {
-            setError(error.response ? error.response.data : error.message);
+            setError(error.response ? error.response.data.message : error.message);
         } finally {
             setLoading(false);
         }
@@ -55,9 +74,10 @@ const Login = () => {
                     required
                 />
                 <div className="forgotPassword">Forgot Password?</div>
-                <Button className="btn-round loginButton" color="primary" type="submit">
-                    Login
+                <Button className="btn-round loginButton" color="primary" type="submit" disabled={loading}>
+                    {loading ? "Logging in..." : "Login"}
                 </Button>
+                {error && <div className="error">{error}</div>}
                 <section className="signup">
                     <p className="DontHaveAccount">Don't have an account?</p>
                     <Link to="/signup" className="signup-link">Sign up</Link>

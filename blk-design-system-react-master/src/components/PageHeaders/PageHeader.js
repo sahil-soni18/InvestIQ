@@ -37,17 +37,17 @@ export default function PageHeader() {
   //   };
   // }, []);
 
-  // useEffect(() => {
-  //   const apiKey = process.env.REACT_APP_ALPHA_VANTAGE_API_KEY;
-  //   axios.get(`https://www.alphavantage.co/query?function=TOP_GAINERS_LOSERS&apikey=${apiKey}`)
-  //     .then((response) => {
-  //       const data = response.data.top_gainers; // Ensure you access the correct path in the response
-  //       setTopGainers(data.slice(0, 3)); // Limit to 3 items
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // }, []);
+  useEffect(() => {
+    const apiKey = process.env.REACT_APP_ALPHA_VANTAGE_API_KEY;
+    axios.get(`https://www.alphavantage.co/query?function=TOP_GAINERS_LOSERS&apikey=${apiKey}`)
+      .then((response) => {
+        const data = response.data.top_gainers; // Ensure you access the correct path in the response
+        setTopGainers(data.slice(0, 3)); // Limit to 3 items
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
 
   return (
     <div className="page-header header-filter">
